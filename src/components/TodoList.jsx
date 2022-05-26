@@ -3,10 +3,17 @@ import TodoForm from "./TodoForm";
 import Todo from "./Todo";
 import TodoServerButton from "./TodoServerButton";
 import Loader from "./UI/Loader/Loader";
+import useFetch from "./hooks/useFetch";
+import PostService from "../API/PostService";
 
 const TodoList = () => {
     const [todos, setTodos] = useState([]);
-    const [isPostsLoading, setIsPostsLoading] = useState(false);
+    const [fetch, isPostsLoading] = useFetch(async () => {
+        const todos = await PostService.getAll();
+        const newTodos = [];
+        todos.map(element => newTodos.push({id: element.id, text: element.title}));
+        setTodos(todos.concat(newTodos));
+    })
 
     const addTodo = todo => {
         if (!todo.text || /^\s*$/.test(todo.text)) {
@@ -48,7 +55,7 @@ const TodoList = () => {
 
     return (
         <div>
-            <TodoServerButton getTodosFromServer={getTodosFromServer} setIsPostsLoading={setIsPostsLoading} />
+            <TodoServerButton getTodosFromServer={getTodosFromServer} fetch={fetch} />
             <h1>What's the Plan for Today?</h1>
             <TodoForm onSubmit={addTodo} />
             {isPostsLoading
