@@ -12,7 +12,9 @@ const UseFetch = (callback) => {
             error = e.message;
         } finally {
             setIsLoading(false);
-            console.error(error);
+            if (error) {
+                console.error(error)
+            }
         }
     }
     return [fetching, isLoading, setIsLoading]

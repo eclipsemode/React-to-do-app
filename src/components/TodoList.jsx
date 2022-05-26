@@ -9,9 +9,9 @@ import PostService from "../API/PostService";
 const TodoList = () => {
     const [todos, setTodos] = useState([]);
     const [fetch, isPostsLoading] = useFetch(async () => {
-        const todos = await PostService.getAll();
+        const response = await PostService.getAll();
         const newTodos = [];
-        todos.map(element => newTodos.push({id: element.id, text: element.title}));
+        response.map(element => newTodos.push({id: element.id, text: element.title}));
         setTodos(todos.concat(newTodos));
     })
 

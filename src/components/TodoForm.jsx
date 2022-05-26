@@ -37,12 +37,15 @@ const TodoForm = (props) => {
                     onChange={handleChange}
                     ref={inputRef}
                 />
+                <label htmlFor="todo-input">
                 <button className="todo-button edit">Update</button>
+                </label>
                 </>
                 ) :
                 (
                     <>
                     <input
+                id="todo-input"
                 type="text"
                 placeholder="Add  a todo"
                 value={input}
@@ -51,7 +54,9 @@ const TodoForm = (props) => {
                 onChange={handleChange}
                 ref={inputRef}
                 />
+                        <label htmlFor="todo-input">
                 <button className="todo-button">Add todo</button>
+                        </label>
                 </>
                 )
             }
