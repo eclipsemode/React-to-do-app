@@ -1,12 +1,16 @@
 import React from 'react';
-import axios from "axios";
+import PostService from "../API/PostService";
 
-const TodoServerButton = ({getTodosFromServer}) => {
-    async function fetchTodos () {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/todos');
-        const newTodos = [];
-        response.data.map(element => newTodos.push({id: element.id, text: element.title}));
-        return getTodosFromServer(newTodos);
+const TodoServerButton = ({getTodosFromServer, setIsPostsLoading}) => {
+    const fetchTodos = () => {
+            setIsPostsLoading(true);
+            setTimeout(async () => {
+                const todos = await PostService.getAll();
+                const newTodos = [];
+                todos.map(element => newTodos.push({id: element.id, text: element.title}));
+                setIsPostsLoading(false);
+                return getTodosFromServer(newTodos);
+            }, 1000)
     }
 
     return (

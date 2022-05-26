@@ -2,9 +2,11 @@ import React, {useState} from 'react';
 import TodoForm from "./TodoForm";
 import Todo from "./Todo";
 import TodoServerButton from "./TodoServerButton";
+import Loader from "./UI/Loader/Loader";
 
 const TodoList = () => {
     const [todos, setTodos] = useState([]);
+    const [isPostsLoading, setIsPostsLoading] = useState(false);
 
     const addTodo = todo => {
         if (!todo.text || /^\s*$/.test(todo.text)) {
@@ -46,10 +48,13 @@ const TodoList = () => {
 
     return (
         <div>
-            <TodoServerButton getTodosFromServer={getTodosFromServer} />
+            <TodoServerButton getTodosFromServer={getTodosFromServer} setIsPostsLoading={setIsPostsLoading} />
             <h1>What's the Plan for Today?</h1>
             <TodoForm onSubmit={addTodo} />
-            <Todo updateTodo={updateTodo} todos={todos} completeTodo={completeTodo} removeTodo={removeTodo}/>
+            {isPostsLoading
+            ? <Loader />
+            : <Todo updateTodo={updateTodo} todos={todos} completeTodo={completeTodo} removeTodo={removeTodo}/>
+            }
         </div>
     );
 };

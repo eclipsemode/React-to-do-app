@@ -1,0 +1,27 @@
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.loader__circle {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px dashed white;
+    animation: rotate 3s infinite linear;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loader__text {
+    color: white;
+}
