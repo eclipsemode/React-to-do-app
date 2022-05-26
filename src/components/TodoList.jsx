@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import TodoForm from "./TodoForm";
 import Todo from "./Todo";
+import TodoServerButton from "./TodoServerButton";
 
 const TodoList = () => {
     const [todos, setTodos] = useState([]);
@@ -39,8 +40,13 @@ const TodoList = () => {
         setTodos(updatedTodos)
     }
 
+    const getTodosFromServer = (newTodos) => {
+        setTodos(todos.concat(newTodos));
+    }
+
     return (
         <div>
+            <TodoServerButton getTodosFromServer={getTodosFromServer} />
             <h1>What's the Plan for Today?</h1>
             <TodoForm onSubmit={addTodo} />
             <Todo updateTodo={updateTodo} todos={todos} completeTodo={completeTodo} removeTodo={removeTodo}/>

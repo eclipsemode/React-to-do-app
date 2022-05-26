@@ -24,6 +24,7 @@ body {
     margin: 128px auto;
     border-radius: 10px;
     padding-bottom: 32px;
+    position: relative;
 }
 
 h1 {
@@ -81,6 +82,12 @@ h1 {
             rgba(17, 122, 255, 1) 100%
     );
     padding: 16px 22px;
+}
+
+.todo-button__server {
+    border-radius: 4px;
+    margin-top: 10px;
+    padding: 7px;
 }
 
 .todo-container {
