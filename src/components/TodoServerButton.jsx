@@ -2,7 +2,7 @@ import React from 'react';
 import axios from "axios";
 
 const TodoServerButton = ({getTodosFromServer}) => {
-    async function fetchTodos() {
+    async function fetchTodos () {
         const response = await axios.get('https://jsonplaceholder.typicode.com/todos');
         const newTodos = [];
         response.data.map(element => newTodos.push({id: element.id, text: element.title}));

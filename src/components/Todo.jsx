@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {RiCloseCircleLine} from "react-icons/ri";
 import {TiEdit} from "react-icons/ti";
 import TodoForm from "./TodoForm";
+import {CSSTransition, TransitionGroup} from "react-transition-group";
 
 const Todo = ({todos, completeTodo, removeTodo, updateTodo}) => {
     const [edit, setEdit] = useState({
@@ -9,7 +10,7 @@ const Todo = ({todos, completeTodo, removeTodo, updateTodo}) => {
         value: ''
     });
 
-    const submitUpdate = value => {
+    const submitUpdate = (value) => {
         updateTodo(edit.id, value);
         setEdit({
             id: null,
@@ -21,23 +22,33 @@ const Todo = ({todos, completeTodo, removeTodo, updateTodo}) => {
         return <TodoForm edit={edit} onSubmit={submitUpdate} />
     }
 
-    return todos.map((todo, index) => (
-        <div className={todo.isComplete ? 'todo-row complete' : 'todo-row'} key={index}>
-            <div key={todo.id} onClick={() => completeTodo(todo.id)}>
-                {todo.text}
-            </div>
-            <div className="icons">
-                <RiCloseCircleLine
-                    onClick={() => removeTodo(todo.id)}
-                    className="delete-icon"
-                />
-                <TiEdit
-                    onClick={() => setEdit({id: todo.id, value: todo.text})}
-                    className="edit-icon"
-                />
-            </div>
-        </div>
-    ))
+    return (
+        <TransitionGroup className="todo-transition">
+            {todos.map((todo, index) => (
+                <CSSTransition
+                    key={todo.id}
+                    timeout={200}
+                    classNames="todo-transition-item"
+                >
+                <div className={todo.isComplete ? 'todo-row complete' : 'todo-row'} key={index}>
+                    <div key={todo.id} onClick={() => completeTodo(todo.id)}>
+                        {todo.text}
+                    </div>
+                    <div className="icons">
+                        <RiCloseCircleLine
+                            onClick={() => removeTodo(todo.id)}
+                            className="delete-icon"
+                        />
+                        <TiEdit
+                            onClick={() => setEdit({id: todo.id, value: todo.text})}
+                            className="edit-icon"
+                        />
+                    </div>
+                </div>
+                </CSSTransition>
+            ))}
+        </TransitionGroup>
+    )
 };
 
 export default Todo;

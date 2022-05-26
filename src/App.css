@@ -153,3 +153,18 @@ h1 {
 .edit-icon {
     color: #fff;
 }
+
+.todo-transition-item-enter {
+    opacity: 0;
+}
+.todo-transition-item-enter-active {
+    opacity: 1;
+    transition: opacity 200ms;
+}
+.todo-transition-item-exit {
+    opacity: 1;
+}
+.todo-transition-item-exit-active {
+    opacity: 0;
+    transition: opacity 200ms;
+}
